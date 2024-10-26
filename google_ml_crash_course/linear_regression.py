@@ -150,7 +150,7 @@ def train_model(model, df, features, label, epochs, batch_size):
 
   return trained_weight, trained_bias, epochs, rmse
 
-def run_experiment(df, feature_names, label_name, learning_rate, epochs, batch_size):
+def build_and_train_model(df, feature_names, label_name, learning_rate, epochs, batch_size):
 
   print('INFO: starting training experiment with features={} and label={}\n'.format(feature_names, label_name))
 
@@ -174,7 +174,7 @@ def run_experiment1(training_df):
     batch_size = 500
     features = ['TRIP_MILES']
     label = 'FARE'
-    model_1 = run_experiment(training_df, features, label, learning_rate, epochs, batch_size)
+    model_1 = build_and_train_model(training_df, features, label, learning_rate, epochs, batch_size)
     '''
     training with 1 feature
     with this set of hyperparameters, it takes about 5 epochs for the training run to converge to the final model
@@ -187,7 +187,7 @@ def run_experiment2(training_df):
     training_df['TRIP_MINUTES'] = training_df['TRIP_SECONDS']/60
     features = ['TRIP_MILES', 'TRIP_MINUTES']
     label = 'FARE'
-    model_1 = run_experiment(training_df, features, label, learning_rate, epochs, batch_size)
+    model_1 = build_and_train_model(training_df, features, label, learning_rate, epochs, batch_size)
     '''
     training with 2 features
     '''
