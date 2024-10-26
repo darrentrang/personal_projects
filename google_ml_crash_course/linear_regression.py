@@ -9,6 +9,7 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import seaborn as sns
 import matplotlib.pyplot as plt
+import tensorflow as tf
 
 #plotting functions
 def make_plots(df, feature_names, label_name, model_output, sample_size=200):
@@ -181,8 +182,8 @@ def run_experiment1(training_df):
 
 def run_experiment2(training_df):
     learning_rate = 0.001
-    epochs = 20
-    batch_size = 50
+    epochs = 200
+    batch_size = 1000
     training_df['TRIP_MINUTES'] = training_df['TRIP_SECONDS']/60
     features = ['TRIP_MILES', 'TRIP_MINUTES']
     label = 'FARE'
@@ -192,6 +193,19 @@ def run_experiment2(training_df):
     '''
 
 
+
+# Check for available GPUs
+gpus = tf.config.list_physical_devices('GPU')
+if gpus:
+    try:
+        # Enable memory growth to prevent TensorFlow from allocating all GPU memory at once
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+        print("GPU is available and configured for use.")
+    except RuntimeError as e:
+        print(f"Error initializing GPU: {e}")
+else:
+    print("No GPU found, running on CPU.")
 
 
 
